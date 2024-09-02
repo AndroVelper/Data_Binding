@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.shubham.apiandroomdatabaseimplementor.fragment.dashboard.DashBoardViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".fragment.dashboard.DashboardFragment">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total: "
+            android:layout_margin="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/poppins_bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/deleteBtn"
+            app:layout_constraintBottom_toBottomOf="@id/deleteBtn"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvTotalItemCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.totalItemCount}"
+            android:layout_margin="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/poppins_bold"
+            app:layout_constraintStart_toEndOf="@id/tvTotal"
+            app:layout_constraintTop_toTopOf="@id/deleteBtn"
+            app:layout_constraintBottom_toBottomOf="@id/deleteBtn"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/visibleItemText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Visible Items:"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/poppins_bold"
+            app:layout_constraintStart_toEndOf="@id/tvTotalItemCount"
+            app:layout_constraintTop_toTopOf="@id/deleteBtn"
+            app:layout_constraintBottom_toBottomOf="@id/deleteBtn"
+            />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/visibleItemCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.visibleItemCount}"
+            android:layout_marginHorizontal="@dimen/_5sdp"
+            android:layout_margin="@dimen/_5sdp"
+            android:textSize="@dimen/_12ssp"
+            android:fontFamily="@font/poppins_bold"
+           app:layout_constraintStart_toEndOf="@id/visibleItemText"
+            app:layout_constraintTop_toTopOf="@id/deleteBtn"
+            app:layout_constraintBottom_toBottomOf="@id/deleteBtn"
+            />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/deleteBtn"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:onClick="@{viewModel::deleteFromDatabase}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_margin="@dimen/_1sdp"
+            android:src="@android:drawable/ic_menu_delete"/>
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/refreshUi"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:onClick="@{viewModel::getAllData}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+            android:layout_margin="@dimen/_1sdp"
+            android:src="@android:drawable/ic_menu_revert"/>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/srlRefreshView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/pbRecyclerDataLoader"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/deleteBtn">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:itemCount="10"
+                tools:listitem="@layout/item_list" />
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        <ProgressBar
+            android:id="@+id/pbRecyclerDataLoader"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/srlRefreshView" />
+
+
+        <ProgressBar
+            android:id="@+id/pbProgressLoader"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:visibility="@{viewModel.isRefreshing ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

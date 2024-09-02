@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.shubham.apiandroomdatabaseimplementor.data.ApiResponse" />
+    </data>
+
+<androidx.cardview.widget.CardView
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    app:cardElevation="@dimen/_2sdp"
+    app:cardCornerRadius="@dimen/_5sdp"
+    android:layout_margin="@dimen/_5sdp"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:padding="@dimen/_2sdp"
+        android:layout_height="match_parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/imageViewParent"
+            android:layout_width="@dimen/_45sdp"
+            android:layout_height="@dimen/_45sdp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="@dimen/_5sdp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:ivImage="@{item.thumbnailUrl}"
+                android:scaleType="fitXY"/>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvItemId"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            app:layout_constraintStart_toEndOf="@+id/imageViewParent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{item.id}"
+            android:textSize="@dimen/_14ssp"
+            android:fontFamily="@font/poppins_semi_bold"
+            app:layout_constraintTop_toTopOf="@+id/imageViewParent"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/_10sdp"
+            app:layout_constraintStart_toEndOf="@+id/imageViewParent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@{item.title}"
+            android:textSize="@dimen/_8ssp"
+            android:fontFamily="@font/poppins_semi_bold"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemId"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>
+</layout>
